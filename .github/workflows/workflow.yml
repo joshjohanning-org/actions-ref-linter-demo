@@ -14,12 +14,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: joshjohanning/actions-ref-linter@7e697774a77e23211d582fd55a07b084e4e01e3b
-      - name: Lint Code Base
-        uses: super-linter/super-linter@main
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      
+      - uses: actions/setup-go@v4
+      
+      - uses: actions/setup-node@main
+      
+      - name: Ensure SHA pinned actions
+        uses: zgosalvez/github-actions-ensure-sha-pinned-actions@f32435541e24cd6a4700a7f52bb2ec59e80603b1
+        with:
+          allowlist: |
+            actions/checkout
+  
       - uses: joshjohanning/actions-ref-linter@7e697774a77e23211d582fd55a07b084e4e01e3b
